@@ -1,4 +1,4 @@
-package neogocio.SistemaPago;
+package negocio.SistemaPago;
 
 public class Debito implements MetodoPago{
 

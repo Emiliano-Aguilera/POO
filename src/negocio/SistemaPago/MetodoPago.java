@@ -1,4 +1,4 @@
-package neogocio.SistemaPago;
+package negocio.SistemaPago;
 
 public interface MetodoPago {
 

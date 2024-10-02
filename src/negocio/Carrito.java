@@ -1,4 +1,4 @@
-package neogocio;
+package negocio;
 
 public class Carrito {
 }
