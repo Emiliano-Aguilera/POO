@@ -30,18 +30,14 @@ public class Catalogo {
         return this.productos.get(codigoProducto);
     }
 
-    public void mostrarCatalogo(){
-        productos.forEach( (codigo, producto) -> {
+    public void mostrarCatalogo() {
+        productos.forEach((codigo, producto) -> {
             int stock = producto.getStock();
-            if(stock <= producto.getStockMinimo()){
+            if (stock <= producto.getStockMinimo()) {
                 System.out.printf("*** Codigo: %d \t Nombre: %s \t Stock: %d \n", codigo, producto.getDescripcion(), stock);
-            }
-            else {
+            } else {
                 System.out.printf("Codigo: %d \t Nombre: %s \t Stock: %d \n", codigo, producto.getDescripcion(), stock);
             }
         });
     }
-
-
 }
-//pennettt
