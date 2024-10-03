@@ -7,4 +7,8 @@ public class Efectivo implements MetodoPago{
         return subtotal * 0.9;
     }
 
+    public int getCuotas(){
+        return this.cuotas;
+    }
+
 }

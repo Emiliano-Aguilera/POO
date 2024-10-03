@@ -1,8 +1,5 @@
 package negocio;
 
-import negocio.SistemaPago.Credito;
-import negocio.SistemaPago.Debito;
-import negocio.SistemaPago.Efectivo;
 import negocio.SistemaPago.MetodoPago;
 
 import java.util.HashMap;
@@ -66,6 +63,7 @@ public class Carrito extends DetalleVenta{
 
     private void calcularTotal(){
         this.total = this.metodoPago.calcularTotal(this.subtotal);
+        this.cuotas = this.metodoDePago.getCuotas();
     }
 
     private void actualizarStockProductos(){

@@ -21,4 +21,8 @@ public class Credito implements MetodoPago{
 
         return total;
     }
+
+    public int getCuotas(){
+        return this.cuotas;
+    }
 }
