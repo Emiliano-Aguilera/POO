@@ -12,7 +12,8 @@ public class DetalleVenta {
     protected double subtotal;
     protected double total;
 
-    public DetalleVenta(int idVenta, HashMap<Integer, PedidoProducto> productos, int fecha, int metodoDePago, int cuotas, int subtotal, double total){
+    public DetalleVenta(int idVenta, HashMap<Integer, PedidoProducto> productos, int fecha, int metodoDePago,
+                        int cuotas, double subtotal, double total){
         this.idVenta = idVenta;
         this.productos = productos;
         this.fecha = fecha;

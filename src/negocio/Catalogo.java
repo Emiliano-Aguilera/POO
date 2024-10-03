@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class Catalogo {
     private static Catalogo instancia = null;
-    private HashMap<Integer, Producto> productos;
+    private final HashMap<Integer, Producto> productos;
 
     public Catalogo(){
         productos = new HashMap<>();

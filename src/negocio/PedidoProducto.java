@@ -1,13 +1,11 @@
 package negocio;
 
 public class PedidoProducto {
-    private int idPedido;
     private int codigoProducto;
     private int cantidad;
     private double subtotal;
 
-    public PedidoProducto(int idPedido, int codigoProducto, int cantidad){
-        this.idPedido = idPedido;
+    public PedidoProducto(int codigoProducto, int cantidad){
         this.codigoProducto = codigoProducto;
         this.cantidad = cantidad;
         this.subtotal = calcularSubtotal();
@@ -19,14 +17,6 @@ public class PedidoProducto {
         double precioProducto = catalogo.elegirProducto(codigoProducto).getPrecio();
 
         return(precioProducto * cantidad);
-    }
-
-    public int getIdPedido() {
-        return idPedido;
-    }
-
-    public void setIdPedido(int idPedido) {
-        this.idPedido = idPedido;
     }
 
     public int getCodigoProducto() {

@@ -7,6 +7,10 @@ public class Producto {
     private double precio;
     private int stockMinimo;
 
+    public void actualizarStock(int cantidad){
+        this.stock += cantidad;
+    }
+
     public int getCodigo() {
         return codigo;
     }
