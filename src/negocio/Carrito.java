@@ -5,7 +5,6 @@ import negocio.SistemaPago.MetodoPago;
 import java.util.HashMap;
 
 public class Carrito{
-
     private HashMap<Integer, Item> itemsCargados;
     private double subtotal;
     private final Catalogo catalogo;
@@ -83,20 +82,4 @@ public class Carrito{
     public void setSubtotal(double subtotal) {
         this.subtotal = subtotal;
     }
-
-//    public Carrito(HashMap<Integer, PedidoProducto> itemsCargados, MetodoPago metodoPago, double subtotal) {
-//        this.itemsCargados = itemsCargados;
-//        this.metodoPago = metodoPago;
-//        this.subtotal = subtotal;
-//    }
-
-//    public Carrito enviarCarrito(){
-//        HashMap<Integer, PedidoProducto> itemsCargadosTmp = this.itemsCargados;
-//        MetodoPago metodoPagoTmp = this.metodoPago;
-//        double subtotalTmp = this.subtotal;
-//
-//        actualizarStockProductos();
-//
-//        return new Carrito(itemsCargadosTmp, metodoPagoTmp, subtotalTmp);
-//    }
 }

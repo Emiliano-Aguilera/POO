@@ -17,7 +17,6 @@ public class Item {
 
     private double calcularSubtotal(){
         double precioProducto = catalogo.elegirProducto(codigoProducto).getPrecio();
-
         return(precioProducto * cantidad);
     }
 
