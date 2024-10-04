@@ -1,19 +1,21 @@
 package negocio;
 
-public class PedidoProducto {
+import javax.xml.catalog.CatalogManager;
+
+public class Item {
     private int codigoProducto;
     private int cantidad;
     private double subtotal;
+    Catalogo catalogo;
 
-    public PedidoProducto(int codigoProducto, int cantidad){
+    public Item(int codigoProducto, int cantidad, Catalogo catalogo){
         this.codigoProducto = codigoProducto;
         this.cantidad = cantidad;
         this.subtotal = calcularSubtotal();
+        this.catalogo = catalogo;
     }
 
     private double calcularSubtotal(){
-        Catalogo catalogo = Catalogo.obtenerInstancia();
-
         double precioProducto = catalogo.elegirProducto(codigoProducto).getPrecio();
 
         return(precioProducto * cantidad);

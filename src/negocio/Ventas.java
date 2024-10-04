@@ -3,11 +3,9 @@ package negocio;
 import java.util.HashMap;
 
 public class Ventas {
-    HashMap<Integer, DetalleVenta> ventas = new HashMap<>();
+    HashMap<Integer, Ticket> ventas = new HashMap<>();
 
-    public void mostrarVentas(){
-        ventas.forEach((codigo, detalle) -> {
-
-        });
+    public HashMap<Integer, Ticket> getVentas() {
+        return ventas;
     }
 }

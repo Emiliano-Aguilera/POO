@@ -4,27 +4,29 @@ import negocio.SistemaPago.MetodoPago;
 
 import java.util.HashMap;
 
-public class Carrito extends DetalleVenta{
-    public static final Boolean SUCCESS = true;
-    public static final Boolean ERROR = false;
+public class Carrito{
 
-    HashMap<Integer, PedidoProducto> itemsCargados;
-    MetodoPago metodoPago;
-    int cuotas;
+    private HashMap<Integer, Item> itemsCargados;
+    private MetodoPago metodoPago;
+    private double subtotal;
+    private final Catalogo catalogo;
 
-    public Carrito(int idVenta, int fecha, double subtotal, double total) {
-        super(idVenta, fecha, subtotal, total);
+
+    private static final Boolean SUCCESS = true;
+    private static final Boolean ERROR = false;
+
+
+    public Carrito(Catalogo catalogo) {
         itemsCargados = new HashMap<>();
+        this.catalogo = catalogo;
     }
 
-    public Boolean cargarProducto(PedidoProducto itemPedido){
+    public Boolean cargarProducto(Item itemPedido){
         Boolean resultado = ERROR;
-
-        Catalogo catalogo = Catalogo.obtenerInstancia();
 
         Producto productoACargar = catalogo.elegirProducto(itemPedido.getCodigoProducto());
 
-        PedidoProducto itemCargado = itemsCargados.get(itemPedido.getCodigoProducto());
+        Item itemCargado = itemsCargados.get(itemPedido.getCodigoProducto());
 
         int cantACargar = itemPedido.getCantidad();
 
@@ -39,8 +41,7 @@ public class Carrito extends DetalleVenta{
 
                 resultado = SUCCESS;
             }
-        }
-        else{
+        }else{
             if(productoACargar.getStock() >= cantACargar) {
                 itemsCargados.put(itemPedido.getCodigoProducto(), itemPedido);
 
@@ -59,33 +60,21 @@ public class Carrito extends DetalleVenta{
 
     public void vaciarCarrito(){
         itemsCargados.clear();
-    }
-
-    private void calcularTotal(){
-        this.total = this.metodoPago.calcularTotal(this.subtotal);
-        this.cuotas = this.metodoDePago.getCuotas();
+        subtotal = 0.0;
+        metodoPago = null;
     }
 
     private void actualizarStockProductos(){
-        Catalogo catalogo = Catalogo.obtenerInstancia();
-
         itemsCargados.forEach((idProducto, itemPedido) -> {
             catalogo.elegirProducto(idProducto).actualizarStock(-itemPedido.getCantidad());
         });
     }
 
-    public DetalleVenta enviarCarrito(){
-        calcularTotal();
-        actualizarStockProductos();
-        return new DetalleVenta(this.idVenta, this.itemsCargados, this.fecha,
-                this.metodoDePago, this.cuotas, this.subtotal, this.total);
-    }
-
-    public HashMap<Integer, PedidoProducto> getItemsCargados() {
+    public HashMap<Integer, Item> getItemsCargados() {
         return itemsCargados;
     }
 
-    public void setItemsCargados(HashMap<Integer, PedidoProducto> itemsCargados) {
+    public void setItemsCargados(HashMap<Integer, Item> itemsCargados) {
         this.itemsCargados = itemsCargados;
     }
 
@@ -96,4 +85,28 @@ public class Carrito extends DetalleVenta{
     public void setMetodoPago(MetodoPago metodoPago) {
         this.metodoPago = metodoPago;
     }
+
+    public double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+//    public Carrito(HashMap<Integer, PedidoProducto> itemsCargados, MetodoPago metodoPago, double subtotal) {
+//        this.itemsCargados = itemsCargados;
+//        this.metodoPago = metodoPago;
+//        this.subtotal = subtotal;
+//    }
+
+//    public Carrito enviarCarrito(){
+//        HashMap<Integer, PedidoProducto> itemsCargadosTmp = this.itemsCargados;
+//        MetodoPago metodoPagoTmp = this.metodoPago;
+//        double subtotalTmp = this.subtotal;
+//
+//        actualizarStockProductos();
+//
+//        return new Carrito(itemsCargadosTmp, metodoPagoTmp, subtotalTmp);
+//    }
 }
