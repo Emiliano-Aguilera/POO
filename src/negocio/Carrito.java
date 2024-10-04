@@ -1,7 +1,5 @@
 package negocio;
 
-import negocio.SistemaPago.MetodoPago;
-
 import java.util.HashMap;
 
 public class Carrito{

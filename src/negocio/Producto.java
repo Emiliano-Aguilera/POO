@@ -4,8 +4,8 @@ public class Producto {
     private int codigo;
     private String descripcion;
     private int stock;
-    private double precio;
     private int stockMinimo;
+    private double precio;
 
     public void actualizarStock(int cantidad){
         this.stock += cantidad;

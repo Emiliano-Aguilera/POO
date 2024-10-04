@@ -6,7 +6,7 @@ public class Item {
     private int codigoProducto;
     private int cantidad;
     private double subtotal;
-    Catalogo catalogo;
+    private Catalogo catalogo;
 
     public Item(int codigoProducto, int cantidad, Catalogo catalogo){
         this.codigoProducto = codigoProducto;

@@ -3,7 +3,7 @@ package negocio;
 import java.util.HashMap;
 
 public class Ticket {
-    private int idVenta;
+    private int idTicket;
     private int fecha;
     private int metodoDePago;
 
@@ -12,9 +12,9 @@ public class Ticket {
 
     private HashMap<Integer, Item> productos;
 
-    public Ticket(int idVenta, HashMap<Integer, Item> productos, int fecha,
+    public Ticket(int idTicket, HashMap<Integer, Item> productos, int fecha,
                   int metodoDePago, double subtotal, double total){
-        this.idVenta = idVenta;
+        this.idTicket = idTicket;
         this.productos = productos;
         this.fecha = fecha;
         this.metodoDePago = metodoDePago;
@@ -23,11 +23,11 @@ public class Ticket {
     }
 
     public int getIdVenta() {
-        return idVenta;
+        return idTicket;
     }
 
     public void setIdVenta(int idVenta) {
-        this.idVenta = idVenta;
+        this.idTicket = idVenta;
     }
 
     public int getFecha() {
