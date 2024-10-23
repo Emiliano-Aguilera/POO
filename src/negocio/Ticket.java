@@ -1,5 +1,5 @@
 package negocio;
-//hola estoy aca
+
 import java.util.HashMap;
 
 public class Ticket {
