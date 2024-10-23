@@ -1,7 +1,7 @@
 package negocio;
 
 public class Producto {
-    private int codigo;
+    private Integer codigo;
     private String descripcion;
     private int stock;
     private int stockMinimo;
@@ -11,11 +11,11 @@ public class Producto {
         this.stock += cantidad;
     }
 
-    public int getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 

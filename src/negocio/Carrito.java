@@ -8,8 +8,8 @@ public class Carrito{
     private final Catalogo catalogo;
 
 
-    private static final Boolean SUCCESS = true;
-    private static final Boolean ERROR = false;
+    private static final boolean SUCCESS = true;
+    private static final boolean ERROR = false;
 
 
     public Carrito(Catalogo catalogo) {
@@ -17,8 +17,8 @@ public class Carrito{
         this.catalogo = catalogo;
     }
 
-    public Boolean cargarProducto(Item itemPedido){
-        Boolean resultado = ERROR;
+    public boolean cargarProducto(Item itemPedido){
+        boolean resultado = ERROR;
 
         Producto productoACargar = catalogo.elegirProducto(itemPedido.getCodigoProducto());
 
@@ -49,9 +49,9 @@ public class Carrito{
         return resultado;
     }
 
-    public void eliminarProducto(int idPedido){
-        this.itemsCargados.remove(idPedido);
-        this.subtotal -= itemsCargados.get(idPedido).getSubtotal();
+    public void eliminarProducto(Integer idItem){
+        this.itemsCargados.remove(idItem);
+        this.subtotal -= itemsCargados.get(idItem).getSubtotal();
     }
 
     public void vaciarCarrito(){
@@ -59,11 +59,17 @@ public class Carrito{
         subtotal = 0.0;
     }
 
-    private void actualizarStockProductos(){
+    private void actualizarStockProductos() {
         itemsCargados.forEach((idProducto, itemPedido) -> {
-            catalogo.elegirProducto(idProducto).actualizarStock(-itemPedido.getCantidad());
+            Producto producto = catalogo.elegirProducto(idProducto);
+            if (producto != null) {
+                producto.actualizarStock(-itemPedido.getCantidad());
+            } else {
+                System.out.println("El producto choto " + idProducto + " no ta en el catalogo negro.");
+            }
         });
     }
+
 
     public HashMap<Integer, Item> getItemsCargados() {
         return itemsCargados;

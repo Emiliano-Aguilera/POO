@@ -1,14 +1,13 @@
 package negocio;
 
-import javax.xml.catalog.CatalogManager;
 
 public class Item {
-    private int codigoProducto;
+    private Integer codigoProducto;
     private int cantidad;
     private double subtotal;
-    private Catalogo catalogo;
+    private final Catalogo catalogo;
 
-    public Item(int codigoProducto, int cantidad, Catalogo catalogo){
+    public Item(Integer codigoProducto, int cantidad, Catalogo catalogo){
         this.codigoProducto = codigoProducto;
         this.cantidad = cantidad;
         this.subtotal = calcularSubtotal();
@@ -16,15 +15,16 @@ public class Item {
     }
 
     private double calcularSubtotal(){
+        assert catalogo != null;
         double precioProducto = catalogo.elegirProducto(codigoProducto).getPrecio();
         return(precioProducto * cantidad);
     }
 
-    public int getCodigoProducto() {
+    public Integer getCodigoProducto() {
         return codigoProducto;
     }
 
-    public void setCodigoProducto(int codigoProducto) {
+    public void setCodigoProducto(Integer codigoProducto) {
         this.codigoProducto = codigoProducto;
     }
 

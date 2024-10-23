@@ -1,6 +1,6 @@
 package negocio;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 
 public class Catalogo {
@@ -10,7 +10,7 @@ public class Catalogo {
         productos = new HashMap<>();
     }
 
-    public Producto elegirProducto(int codigoProducto){
+    public Producto elegirProducto(Integer codigoProducto){
         return this.productos.get(codigoProducto);
     }
 
@@ -18,7 +18,7 @@ public class Catalogo {
         this.productos.put(producto.getCodigo(), producto);
     }
 
-    public void sacarProducto(int codigoProducto){
+    public void sacarProducto(Integer codigoProducto){
         this.productos.remove(codigoProducto);
     }
 
