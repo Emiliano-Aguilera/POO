@@ -7,6 +7,14 @@ public class Producto {
     private int stockMinimo;
     private double precio;
 
+    public Producto(Integer codigo, String descripcion, int stock, int stockMinimo, double precio) {
+        this.codigo = codigo;
+        this.descripcion = descripcion;
+        this.stock = stock;
+        this.stockMinimo = stockMinimo;
+        this.precio = precio;
+    }
+
     public void actualizarStock(int cantidad){
         this.stock += cantidad;
     }

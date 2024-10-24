@@ -1,6 +1,7 @@
 package negocio;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Catalogo {
@@ -22,7 +23,7 @@ public class Catalogo {
         this.productos.remove(codigoProducto);
     }
 
-    public HashMap<Integer, Producto> getProductos() {
-        return productos;
+    public ArrayList<Producto> obtenerProductos(){
+        return new ArrayList<>(productos.values());
     }
 }
