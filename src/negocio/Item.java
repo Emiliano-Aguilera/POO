@@ -5,17 +5,16 @@ public class Item {
     private Integer codigoProducto;
     private int cantidad;
     private double subtotal;
-    private final Catalogo catalogo;
+    private Catalogo catalogo;
 
     public Item(Integer codigoProducto, int cantidad, Catalogo catalogo){
         this.codigoProducto = codigoProducto;
         this.cantidad = cantidad;
-        this.subtotal = calcularSubtotal();
         this.catalogo = catalogo;
+        this.subtotal = calcularSubtotal();
     }
 
     private double calcularSubtotal(){
-        assert catalogo != null;
         double precioProducto = catalogo.elegirProducto(codigoProducto).getPrecio();
         return(precioProducto * cantidad);
     }

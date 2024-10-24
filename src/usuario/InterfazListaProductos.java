@@ -1,54 +1,83 @@
 package usuario;
 
+import negocio.Carrito;
+import negocio.Catalogo;
+import negocio.Item;
 import negocio.Producto;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class InterfazListaProductos extends JDialog {
+public class InterfazListaProductos extends JFrame {
     private JPanel contentPane;   // Main content panel
-    private JPanel productPanel;  // Panel to hold product items
+    private JButton botonPagar;
+    private JPanel productPanel;
+    private ArrayList<Producto> productos;
+    private Catalogo catalogo;
+    private HashMap<Integer, JComboBox<Integer>> productosCantidad;
+    
+    
+    public InterfazListaProductos(Catalogo catalogo, Carrito carrito) {
+        this.catalogo = catalogo;
+        this.productos = catalogo.obtenerProductos();
+        this.productosCantidad = new HashMap<>();
 
-    public InterfazListaProductos(JFrame parent, ArrayList<Producto> productos) {
-        super(parent, "Agregar Producto", true);
-
-        setSize(400, 300); // Set size for the new window
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(parent); // Center the window
-
-        // Initialize the content pane and product panel
-        contentPane = new JPanel(new BorderLayout());
-        productPanel = new JPanel();
-        productPanel.setLayout(new BoxLayout(productPanel, BoxLayout.Y_AXIS)); // Use BoxLayout to stack items vertically
-
-        // Loop through the products and add available items to the panel
-        for (Producto item : productos) {
-            if (item.getStock() > 0) {
-                // Create a panel for each product item
-                JPanel itemPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-                // Create a label for the product description
-                JLabel label = new JLabel(item.getDescripcion());
-                itemPanel.add(label);
-
-                // Create a button for the product
-                JButton button = new JButton("Select");
-                button.addActionListener(e -> {
-
-                });
-                itemPanel.add(button);
-
-                // Add the item panel to the main product panel
-                productPanel.add(itemPanel);
-            }
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        // Add the product panel to a JScrollPane for scrolling capabilities
-        JScrollPane scrollPane = new JScrollPane(productPanel);
-        contentPane.add(scrollPane, BorderLayout.CENTER); // Add scrollPane to the center of the content pane
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        productPanel = new JPanel();
+        productPanel.setLayout(new BoxLayout(productPanel, BoxLayout.Y_AXIS)); // Use BoxLayout to stack productos vertically
+
+
+        botonPagar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carrito.enviarCarrito(productosCantidad);
+            }
+        });
         setContentPane(contentPane); // Set the content pane
         setVisible(true); // Show the dialog after setting the content pane
+    }
+    public void mostrarProductos(){
+        // Loop through the products and add available productos to the panel
+        for (Producto producto : productos) {
+            if (producto.getStock() > 0) {
+                // Create a panel for each product producto
+                JPanel productoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+                // Create a label for the product description
+                JLabel descripcionProducto = new JLabel(producto.getDescripcion());
+                productoPanel.add(descripcionProducto);
+
+                // Create a button for the product
+                JComboBox<Integer> cantidad = new JComboBox<>();
+
+                for (int i = 0; i <= producto.getStock(); i++) {
+                    cantidad.addItem(i);
+                }
+
+                productoPanel.add(cantidad);
+
+                // Add the producto panel to the main product panel
+                productPanel.add(productoPanel);
+
+                productosCantidad.put(producto.getCodigo(), cantidad);
+            }
+        }
+        // Add the product panel to a JScrollPane for scrolling capabilities
+        JScrollPane scrollPane = new JScrollPane(productPanel);
+        contentPane.add(scrollPane, BorderLayout.CENTER);
+        pack();
     }
 }

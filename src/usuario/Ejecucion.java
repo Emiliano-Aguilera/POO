@@ -12,17 +12,15 @@ public class Ejecucion{
 
         Carrito carrito = new Carrito(catalogo);
 
-        Producto producto1 = new Producto(1, "Papa", 10, 5, 100);
-        Producto producto2 = new Producto(2, "Pap2", 10, 5, 100);
-        Producto producto3 = new Producto(3, "Pap1", 10, 5, 100);
+        for(int i = 0; i < 10; i++){
+            Producto producto = new Producto(i, "Papa" + i, 10 + i, 5, 100);
 
-
-        catalogo.agregarProducto(producto1);
-        catalogo.agregarProducto(producto2);
-        catalogo.agregarProducto(producto3);
+            catalogo.agregarProducto(producto);
+        }
 
         SwingUtilities.invokeLater(() -> {
-            InterfazCarrito interfaz = new InterfazCarrito(catalogo);
+            InterfazListaProductos interfaz = new InterfazListaProductos(catalogo, carrito);
+            interfaz.mostrarProductos();
         });
     }
 }

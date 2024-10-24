@@ -1,6 +1,11 @@
 package negocio;
 
+import usuario.InterfazListaProductos;
+import usuario.InterfazMetodoPago;
+
+import javax.swing.*;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Carrito{
     private HashMap<Integer, Item> itemsCargados;
@@ -57,6 +62,25 @@ public class Carrito{
     public void vaciarCarrito(){
         itemsCargados.clear();
         subtotal = 0.0;
+    }
+
+    public void enviarCarrito(HashMap<Integer, JComboBox<Integer>> productosCantidad){
+        for (Map.Entry<Integer, JComboBox<Integer>> entry : productosCantidad.entrySet()) {
+            Integer codigoProducto = entry.getKey(); // Access the JLabel (Product code)
+
+            JComboBox<Integer> comboBox = entry.getValue();  // Access the JComboBox (Selected quantity)
+            Integer cantidadElegida = (Integer) comboBox.getSelectedItem();  // Get the selected quantity
+
+            Item item = new Item(codigoProducto, cantidadElegida, catalogo);
+
+            this.cargarProducto(item);
+        }
+
+
+        SwingUtilities.invokeLater(() -> {
+            InterfazMetodoPago metodoPago = new InterfazMetodoPago(this.getSubtotal());
+            int total = metodoPago.efectuarPago();
+        });
     }
 
     private void actualizarStockProductos() {
