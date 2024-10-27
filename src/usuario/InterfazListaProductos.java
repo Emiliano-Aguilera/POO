@@ -2,7 +2,6 @@ package usuario;
 
 import negocio.Carrito;
 import negocio.Catalogo;
-import negocio.Item;
 import negocio.Producto;
 
 import javax.swing.*;
@@ -14,14 +13,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InterfazListaProductos extends JFrame {
-    private JPanel contentPane;   // Main content panel
+    private JPanel contentPane;
     private JButton botonPagar;
     private JPanel productPanel;
     private ArrayList<Producto> productos;
     private Catalogo catalogo;
     private HashMap<Integer, JComboBox<Integer>> productosCantidad;
-    
-    
+
     public InterfazListaProductos(Catalogo catalogo, Carrito carrito) {
         this.catalogo = catalogo;
         this.productos = catalogo.obtenerProductos();
@@ -36,48 +34,66 @@ public class InterfazListaProductos extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        productPanel = new JPanel();
-        productPanel.setLayout(new BoxLayout(productPanel, BoxLayout.Y_AXIS)); // Use BoxLayout to stack productos vertically
+        botonPagar = new JButton("Pagar"); // Inicialización del botón
 
+        productPanel = new JPanel();
+        productPanel.setLayout(new BoxLayout(productPanel, BoxLayout.Y_AXIS));
 
         botonPagar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carrito.enviarCarrito(productosCantidad);
+                // Calcular el subtotal del carrito
+                int subtotal = calcularSubtotal();
+
+                // Abrir la ventana de método de pago como JDialog
+                InterfazMetodoPago metodoPagoDialog = new InterfazMetodoPago(InterfazListaProductos.this, subtotal);
+                metodoPagoDialog.setVisible(true); // Mostrar el diálogo modal
             }
         });
-        setContentPane(contentPane); // Set the content pane
-        setVisible(true); // Show the dialog after setting the content pane
+
+        contentPane = new JPanel(new BorderLayout());
+        contentPane.add(productPanel, BorderLayout.CENTER);
+        contentPane.add(botonPagar, BorderLayout.SOUTH);
+
+        setContentPane(contentPane);
+        setVisible(true);
+        pack();
     }
+
     public void mostrarProductos(){
-        // Loop through the products and add available productos to the panel
         for (Producto producto : productos) {
             if (producto.getStock() > 0) {
-                // Create a panel for each product producto
                 JPanel productoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-                // Create a label for the product description
                 JLabel descripcionProducto = new JLabel(producto.getDescripcion());
                 productoPanel.add(descripcionProducto);
 
-                // Create a button for the product
                 JComboBox<Integer> cantidad = new JComboBox<>();
-
                 for (int i = 0; i <= producto.getStock(); i++) {
                     cantidad.addItem(i);
                 }
 
                 productoPanel.add(cantidad);
-
-                // Add the producto panel to the main product panel
                 productPanel.add(productoPanel);
 
                 productosCantidad.put(producto.getCodigo(), cantidad);
             }
         }
-        // Add the product panel to a JScrollPane for scrolling capabilities
+
         JScrollPane scrollPane = new JScrollPane(productPanel);
         contentPane.add(scrollPane, BorderLayout.CENTER);
         pack();
     }
+
+    private int calcularSubtotal() {
+        int subtotal = 0;
+        for (Map.Entry<Integer, JComboBox<Integer>> entry : productosCantidad.entrySet()) {
+            int cantidad = (int) entry.getValue().getSelectedItem();
+            Producto producto = catalogo.elegirProducto(entry.getKey());
+            if (producto != null) {
+                subtotal += cantidad * producto.getPrecio();
+            }
+        }
+        return subtotal;
+    }
 }
+

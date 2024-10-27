@@ -78,8 +78,8 @@ public class Carrito{
 
 
         SwingUtilities.invokeLater(() -> {
-            InterfazMetodoPago metodoPago = new InterfazMetodoPago(this.getSubtotal());
-            int total = metodoPago.efectuarPago();
+            //InterfazMetodoPago metodoPago = new InterfazMetodoPago(this.getSubtotal());
+            //int total = metodoPago.efectuarPago();
         });
     }
 
