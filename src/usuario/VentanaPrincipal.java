@@ -12,6 +12,7 @@ public class VentanaPrincipal extends JFrame {
     private JButton botonAgregar;
     private JPanel ventanaSeleccion;
     private JLabel header;
+    private JButton botonCatalogo;
 
 
     public VentanaPrincipal(Catalogo catalogo, Carrito carrito) {
@@ -34,6 +35,13 @@ public class VentanaPrincipal extends JFrame {
                 InterfazListaProductos listaProductos = new InterfazListaProductos(VentanaPrincipal.this,
                         catalogo, carrito);
                 listaProductos.setVisible(true);
+            }
+        });
+        botonCatalogo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                InterfazCatalogo ventanaCatalogo = new InterfazCatalogo(VentanaPrincipal.this, catalogo);
+                ventanaCatalogo.setVisible(true);
             }
         });
     }
