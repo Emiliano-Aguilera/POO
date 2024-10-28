@@ -1,6 +1,7 @@
 package negocio;
 
 import java.util.HashMap;
+import datos.*;
 
 public class Ventas {
     private final HashMap<Integer, Ticket> ventas;
@@ -21,5 +22,16 @@ public class Ventas {
 
     public int generarId(){
         return idTicket++;
+    }
+
+    public static Ventas recuperarse(){
+        Ventas ventas=(Ventas)DatosVentas.recuperar();
+        if(ventas == null)
+            ventas = new Ventas();
+        return ventas;
+    }
+
+    public boolean guardarse(){
+        return DatosVentas.guardar(this);
     }
 }

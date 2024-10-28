@@ -1,6 +1,6 @@
 package negocio;
 
-
+import datos.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,5 +25,16 @@ public class Catalogo {
 
     public ArrayList<Producto> obtenerProductos(){
         return new ArrayList<>(productos.values());
+    }
+
+    public static Catalogo recuperarse(){
+        Catalogo cat=(Catalogo)DatosCatalogo.recuperar();
+        if(cat == null)
+            cat = new Catalogo();
+        return cat;
+    }
+
+    public boolean guardarse(){
+        return DatosCatalogo.guardar(this);
     }
 }
