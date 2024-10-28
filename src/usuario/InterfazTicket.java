@@ -20,7 +20,7 @@ public class InterfazTicket extends JDialog{
 
     Catalogo catalogo;
 
-    public InterfazTicket(JFrame parent, Ticket ticket, Catalogo catalogo){
+    public InterfazTicket(JDialog parent, Ticket ticket, Catalogo catalogo){
         super(parent, "Ticket", true);
         this.catalogo = catalogo;
 

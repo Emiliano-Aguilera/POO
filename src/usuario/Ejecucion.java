@@ -20,8 +20,7 @@ public class Ejecucion{
         }
 
         SwingUtilities.invokeLater(() -> {
-            InterfazListaProductos interfaz = new InterfazListaProductos(catalogo, carrito);
-            interfaz.mostrarProductos();
+
         });
     }
 }

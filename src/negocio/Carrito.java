@@ -58,6 +58,7 @@ public class Carrito implements Serializable {
         LocalDate fecha = LocalDate.now();
         Ticket ticket = new Ticket(idTicket, getItemsCargados(), fecha, metodoPago, this.subtotal, total);
         ventas.agregarTicket(ticket);
+        actualizarStockProductos();
 
         return ticket;
     }
