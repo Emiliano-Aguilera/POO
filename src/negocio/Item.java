@@ -5,7 +5,7 @@ public class Item {
     private Integer codigoProducto;
     private int cantidad;
     private double subtotal;
-    private Catalogo catalogo;
+    private final Catalogo catalogo;
 
     public Item(Integer codigoProducto, int cantidad, Catalogo catalogo){
         this.codigoProducto = codigoProducto;

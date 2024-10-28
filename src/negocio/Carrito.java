@@ -1,30 +1,23 @@
 package negocio;
 
-import usuario.InterfazListaProductos;
-import usuario.InterfazMetodoPago;
+import negocio.SistemaPago.MetodoPago;
 
-import javax.swing.*;
+import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Carrito{
     private HashMap<Integer, Item> itemsCargados;
     private double subtotal;
     private final Catalogo catalogo;
+    private final Ventas ventas;
 
-
-    private static final boolean SUCCESS = true;
-    private static final boolean ERROR = false;
-
-
-    public Carrito(Catalogo catalogo) {
+    public Carrito(Catalogo catalogo, Ventas ventas) {
         itemsCargados = new HashMap<>();
         this.catalogo = catalogo;
+        this.ventas = ventas;
     }
 
-    public boolean cargarProducto(Item itemPedido){
-        boolean resultado = ERROR;
-
+    public void cargarProducto(Item itemPedido){
         Producto productoACargar = catalogo.elegirProducto(itemPedido.getCodigoProducto());
 
         Item itemCargado = itemsCargados.get(itemPedido.getCodigoProducto());
@@ -39,19 +32,14 @@ public class Carrito{
                 this.subtotal += itemPedido.getSubtotal();
 
                 itemCargado.setCantidad(cantNueva);
-
-                resultado = SUCCESS;
             }
         }else{
             if(productoACargar.getStock() >= cantACargar) {
                 itemsCargados.put(itemPedido.getCodigoProducto(), itemPedido);
 
                 this.subtotal += itemPedido.getSubtotal();
-
-                resultado = SUCCESS;
             }
         }
-        return resultado;
     }
 
     public void eliminarProducto(Integer idItem){
@@ -64,23 +52,13 @@ public class Carrito{
         subtotal = 0.0;
     }
 
-    public void enviarCarrito(HashMap<Integer, JComboBox<Integer>> productosCantidad){
-        for (Map.Entry<Integer, JComboBox<Integer>> entry : productosCantidad.entrySet()) {
-            Integer codigoProducto = entry.getKey(); // Access the JLabel (Product code)
+    public void enviarCarrito(double productosCantidad, MetodoPago metodoPago, double total){
 
-            JComboBox<Integer> comboBox = entry.getValue();  // Access the JComboBox (Selected quantity)
-            Integer cantidadElegida = (Integer) comboBox.getSelectedItem();  // Get the selected quantity
+        int idTicket = ventas.generarId();
+        LocalDate fecha = LocalDate.now();
+        Ticket ticket = new Ticket(idTicket, getItemsCargados(), fecha, metodoPago, this.subtotal, total);
+        ventas.agregarTicket(ticket);
 
-            Item item = new Item(codigoProducto, cantidadElegida, catalogo);
-
-            this.cargarProducto(item);
-        }
-
-
-        SwingUtilities.invokeLater(() -> {
-            //InterfazMetodoPago metodoPago = new InterfazMetodoPago(this.getSubtotal());
-            //int total = metodoPago.efectuarPago();
-        });
     }
 
     private void actualizarStockProductos() {
@@ -89,7 +67,7 @@ public class Carrito{
             if (producto != null) {
                 producto.actualizarStock(-itemPedido.getCantidad());
             } else {
-                System.out.println("El producto choto " + idProducto + " no ta en el catalogo negro.");
+                System.out.println("El producto " + idProducto + " no esta en el catalogo");
             }
         });
     }

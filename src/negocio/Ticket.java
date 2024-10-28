@@ -1,19 +1,22 @@
 package negocio;
 
+import negocio.SistemaPago.MetodoPago;
+
+import java.time.LocalDate;
 import java.util.HashMap;
 
 public class Ticket {
     private Integer idTicket;
-    private int fecha;
-    private int metodoDePago;
+    private LocalDate fecha;
+    private MetodoPago metodoDePago;
 
     private double subtotal;
     private double total;
 
     private HashMap<Integer, Item> productos;
 
-    public Ticket(Integer idTicket, HashMap<Integer, Item> productos, int fecha,
-                  int metodoDePago, double subtotal, double total){
+    public Ticket(Integer idTicket, HashMap<Integer, Item> productos, LocalDate fecha,
+                  MetodoPago metodoDePago, double subtotal, double total){
         this.idTicket = idTicket;
         this.productos = productos;
         this.fecha = fecha;
@@ -22,19 +25,19 @@ public class Ticket {
         this.total = total;
     }
 
-    public int getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(int fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
-    public int getMetodoDePago() {
+    public MetodoPago getMetodoDePago() {
         return metodoDePago;
     }
 
-    public void setMetodoDePago(int metodoDePago) {
+    public void setMetodoDePago(MetodoPago metodoDePago) {
         this.metodoDePago = metodoDePago;
     }
 
