@@ -15,12 +15,12 @@ public class Ejecucion{
 
         for(int i = 0; i < 10; i++){
             Producto producto = new Producto(i, "Papa" + i, 10 + i, 5, 100);
-
             catalogo.agregarProducto(producto);
         }
 
         SwingUtilities.invokeLater(() -> {
-
+            VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(catalogo, carrito);
+            ventanaPrincipal.setVisible(true);
         });
     }
 }

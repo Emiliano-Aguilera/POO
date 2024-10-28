@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class InterfazListaProductos extends JDialog {
     private JPanel contentPane;
     private JButton botonPagar;
-    private JPanel panelDeProductos;
+    private final JPanel panelDeProductos;
     private ArrayList<Producto> productos;
     private final HashMap<Integer, JComboBox<Integer>> codigosCantidad;
 
@@ -27,7 +27,7 @@ public class InterfazListaProductos extends JDialog {
             e.printStackTrace();
         }
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         panelDeProductos = new JPanel();
         panelDeProductos.setLayout(new BoxLayout(panelDeProductos, BoxLayout.Y_AXIS));
@@ -35,17 +35,16 @@ public class InterfazListaProductos extends JDialog {
         JScrollPane scrollPane = new JScrollPane(panelDeProductos);
         contentPane.add(scrollPane, BorderLayout.CENTER);
 
-        contentPane.add(panelDeProductos, BorderLayout.CENTER);
         contentPane.add(botonPagar, BorderLayout.SOUTH);
+
+        mostrarProductos();
 
         setContentPane(contentPane);
 
-        setVisible(true);
         pack();
 
         // La ubicacion se pone al final, para que se centre con las dimensiones finales
-        setLocationRelativeTo(null);
-
+        setLocationRelativeTo(parent);
         botonPagar.addActionListener(_ -> {
             codigosCantidad.forEach((codigo, comboBox) -> {
                 if(comboBox.getItemAt(comboBox.getSelectedIndex()) > 0) {
@@ -63,7 +62,6 @@ public class InterfazListaProductos extends JDialog {
 
             this.productos = catalogo.obtenerProductos();
             mostrarProductos();
-
             pack();
         });
     }

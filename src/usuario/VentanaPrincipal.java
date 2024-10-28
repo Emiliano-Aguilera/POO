@@ -1,14 +1,13 @@
 package usuario;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import negocio.Catalogo;
 import negocio.Carrito;
 
-public class VentanaPrincipal extends Component {
-    private JPanel panel1;
+public class VentanaPrincipal extends JFrame {
+    private JPanel contentPane;
     private JButton botonComprar;
     private JButton botonAgregar;
     private JPanel ventanaSeleccion;
@@ -16,6 +15,8 @@ public class VentanaPrincipal extends Component {
 
 
     public VentanaPrincipal(Catalogo catalogo, Carrito carrito) {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             SwingUtilities.updateComponentTreeUI(this);
@@ -23,19 +24,15 @@ public class VentanaPrincipal extends Component {
             e.printStackTrace();
         }
 
-        JFrame ventanaPrincipal = new JFrame("Tienda Online");
-        ventanaPrincipal.setContentPane(panel1);
-        ventanaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventanaPrincipal.pack();
-        ventanaPrincipal.setLocationRelativeTo(null);
-        ventanaPrincipal.setVisible(true);
+        setContentPane(contentPane);
 
+        pack();
+        setLocationRelativeTo(null);
 
         botonComprar.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
-
-                InterfazListaProductos listaProductos = new InterfazListaProductos(catalogo, carrito);
+                InterfazListaProductos listaProductos = new InterfazListaProductos(VentanaPrincipal.this,
+                        catalogo, carrito);
                 listaProductos.setVisible(true);
             }
         });
