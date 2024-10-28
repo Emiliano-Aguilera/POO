@@ -8,9 +8,11 @@ import java.util.HashMap;
 
 public class Catalogo implements Serializable {
     private final HashMap<Integer, Producto> productos;
+    private int idItem;
 
     public Catalogo(){
         productos = new HashMap<>();
+        idItem = 0;
     }
 
     public Producto elegirProducto(Integer codigoProducto){
@@ -27,6 +29,9 @@ public class Catalogo implements Serializable {
 
     public ArrayList<Producto> obtenerProductos(){
         return new ArrayList<>(productos.values());
+    }
+    public int getIdItem() {
+        return idItem++;
     }
 
     public static Catalogo recuperarse(){
