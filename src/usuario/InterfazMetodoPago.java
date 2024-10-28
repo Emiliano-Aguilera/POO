@@ -27,7 +27,7 @@ public class InterfazMetodoPago extends JDialog {
     private JComboBox<Integer> cuotas;
     private JLabel labelTotal;
 
-    public InterfazMetodoPago(JFrame parent, double subtotal, Carrito carrito, Catalogo catalogo) {
+    public InterfazMetodoPago(JDialog parent, double subtotal, Carrito carrito, Catalogo catalogo) {
         super(parent, "Seleccione Método de Pago", true);
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -84,7 +84,8 @@ public class InterfazMetodoPago extends JDialog {
 
         botonPagar.addActionListener(_ -> {
             Ticket ticket = carrito.enviarCarrito(metodoPago[0], this.total);
-            InterfazTicket interfazTicket = new InterfazTicket(parent, ticket, catalogo);
+            InterfazTicket interfazTicket = new InterfazTicket(InterfazMetodoPago.this, ticket, catalogo);
+            carrito.vaciarCarrito();
             interfazTicket.setVisible(true);
             dispose();
         });
