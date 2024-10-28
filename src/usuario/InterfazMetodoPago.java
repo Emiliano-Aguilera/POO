@@ -4,22 +4,19 @@ import javax.swing.*;
 import java.awt.*;
 
 public class InterfazMetodoPago extends JDialog {
-    private int subtotal;
+    private double subtotal;
     private JRadioButton efectivo;
     private JRadioButton debito;
     private JRadioButton credito;
     private JButton confirmarPago;
 
-    public InterfazMetodoPago(JFrame parent, int subtotal) {
+    public InterfazMetodoPago(JFrame parent, double subtotal) {
         super(parent, "Seleccione Método de Pago", true);  // Configuración de JDialog modal
         this.subtotal = subtotal;
 
         setSize(300, 200);
         setLayout(new GridLayout(4, 1));
 
-        efectivo = new JRadioButton("Efectivo");
-        debito = new JRadioButton("Débito");
-        credito = new JRadioButton("Crédito");
         confirmarPago = new JButton("Confirmar Pago");
 
         // Agrupar los botones de opción
