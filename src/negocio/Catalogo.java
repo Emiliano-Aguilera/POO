@@ -30,6 +30,7 @@ public class Catalogo implements Serializable {
     public ArrayList<Producto> obtenerProductos(){
         return new ArrayList<>(productos.values());
     }
+
     public int getIdItem() {
         return idItem++;
     }
