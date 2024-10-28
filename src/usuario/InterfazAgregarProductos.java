@@ -5,38 +5,37 @@ import negocio.Catalogo;
 import negocio.Producto;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class InterfazAgregarProductos {
-    private JPanel panel1;
+public class InterfazAgregarProductos extends JDialog {
+    private JPanel contentPane;
+    private JButton botonAgregar;
     private JTextField descripcion;
     private JTextField stock;
     private JTextField stockMin;
     private JTextField precio;
-    private JComboBox botonAgregar;
     private Catalogo catalogo;
-    public InterfazAgregarProductos(Catalogo catalogo){
+    public InterfazAgregarProductos(JFrame parent ,Catalogo catalogo){
+        super(parent, "Agregar Productos", true);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setContentPane(contentPane);
         this.catalogo = catalogo;
         botonAgregar.addActionListener(_ -> {
             try {
-                    agregarProducto();
-                }
+                agregarProducto();
+                Mensaje mensaje = new Mensaje(InterfazAgregarProductos.this,"Se cargo correctamente el producto");
+                mensaje.setVisible(true);
+            }
             catch (ErrorCargaException _) {
-
-                }
+                Mensaje error = new Mensaje(InterfazAgregarProductos.this,"No se cargo correctamente el producto");
+                error.setVisible(true);
+            }
         });
+        pack();
+        setLocationRelativeTo(parent);
+
     }
     private void agregarProducto() throws ErrorCargaException {
-        // Verificar si algún campo está vacío
-        if (descripcion.getText().isEmpty() ||
-                stock.getText().isEmpty() ||
-                stockMin.getText().isEmpty() ||
-                precio.getText().isEmpty()) {
-
-            throw new ErrorCargaException();
-        }
-            // Capturar los datos ingresados
+        try {
             String descripcionTexto = descripcion.getText();
             int stockActual = Integer.parseInt(stock.getText());
             int stockMinimo = Integer.parseInt(stockMin.getText());
@@ -48,8 +47,11 @@ public class InterfazAgregarProductos {
 
             // Limpiar los campos
             limpiarCampos();
+        }
+        catch (NullPointerException _) {
+            throw new ErrorCargaException();
+        }
 
-            // Mostrar mensaje de éxito
     }
 
     private void limpiarCampos() {
@@ -59,3 +61,4 @@ public class InterfazAgregarProductos {
         precio.setText("");
     }
 }
+

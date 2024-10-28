@@ -67,7 +67,7 @@ public class InterfazListaProductos extends JDialog {
                 mostrarProductos();
                 pack();
             }else{
-                MensajeError error = new MensajeError(InterfazListaProductos.this,
+                Mensaje error = new Mensaje(InterfazListaProductos.this,
                         "Debe añadir al menos 1 producto.");
                 error.setVisible(true);
             }

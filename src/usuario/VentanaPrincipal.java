@@ -44,6 +44,13 @@ public class VentanaPrincipal extends JFrame {
                 ventanaCatalogo.setVisible(true);
             }
         });
+        botonAgregar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                InterfazAgregarProductos ventanaAgregar = new InterfazAgregarProductos(VentanaPrincipal.this, catalogo);
+                ventanaAgregar.setVisible(true);
+            }
+        });
     }
 }
 
