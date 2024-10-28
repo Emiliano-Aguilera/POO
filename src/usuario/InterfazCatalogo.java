@@ -37,8 +37,24 @@ public class InterfazCatalogo extends JDialog {
     }
 
     public void mostrarCatalogo(){
+        JPanel productoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        JLabel labelCodigoProducto = new JLabel("Codigo");
+        JLabel labelDescripcionProducto = new JLabel("Desc.");
+        JLabel labelStock = new JLabel("Stock");
+        JLabel labelStockMinimo = new JLabel("Stock Min.");
+        JLabel labelPrecioProducto = new JLabel("Precio");
+
+        productoPanel.add(labelCodigoProducto);
+        productoPanel.add(labelDescripcionProducto);
+        productoPanel.add(labelStock);
+        productoPanel.add(labelStockMinimo);
+        productoPanel.add(labelPrecioProducto);
+
+        contentPane.add(productoPanel);
+
         for (Producto producto : productos) {
-            JPanel productoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            productoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
             JLabel codigoProducto = new JLabel(String.valueOf(producto.getCodigo()));
             JLabel descripcionProducto = new JLabel(producto.getDescripcion());
@@ -50,12 +66,11 @@ public class InterfazCatalogo extends JDialog {
                 // Make background visible
                 productoPanel.setOpaque(true);
                 // Change to red text on yellow background
-                productoPanel.setForeground(Color.RED);
-                productoPanel.setBackground(Color.WHITE);
+                productoPanel.setBackground(Color.RED);
             }
 
             // añadir datos del producto a el panel del producto
-            productoPanel.add(precioProducto);
+            productoPanel.add(codigoProducto);
             productoPanel.add(descripcionProducto);
             productoPanel.add(stock);
             productoPanel.add(stockMinimo);
