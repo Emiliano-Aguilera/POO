@@ -1,9 +1,6 @@
 package usuario;
 
-import negocio.Carrito;
-import negocio.Catalogo;
-import negocio.Item;
-import negocio.Producto;
+import negocio.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,16 +42,19 @@ public class InterfazListaProductos extends JFrame {
         setLocationRelativeTo(null);
 
         botonPagar.addActionListener(_ -> {
-
             codigosCantidad.forEach((codigo, comboBox) -> {
-                Item item = new Item(codigo, comboBox.getSelectedIndex(), catalogo);
-                carrito.cargarProducto(item);
+                if(comboBox.getItemAt(comboBox.getSelectedIndex()) > 0) {
+                    Item item = new Item(codigo, comboBox.getSelectedIndex(), catalogo);
+                    carrito.cargarProducto(item);
+                }
             });
 
             double subtotal = carrito.getSubtotal();
 
+            resetComboBox();
+
             // Open payment method window
-            InterfazMetodoPago metodoPagoDialog = new InterfazMetodoPago(InterfazListaProductos.this, subtotal, carrito);
+            InterfazMetodoPago metodoPagoDialog = new InterfazMetodoPago(InterfazListaProductos.this, subtotal, carrito, catalogo);
             metodoPagoDialog.setVisible(true);
         });
     }
@@ -65,7 +65,6 @@ public class InterfazListaProductos extends JFrame {
                 JPanel productoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
                 JLabel descripcionProducto = new JLabel(producto.getDescripcion());
                 JLabel precioProducto = new JLabel(String.valueOf(producto.getPrecio()));
-
 
                 JComboBox<Integer> cantidad = new JComboBox<>();
                 for (int i = 0; i <= producto.getStock(); i++) {
@@ -84,10 +83,16 @@ public class InterfazListaProductos extends JFrame {
         }
 
         JScrollPane scrollPane = new JScrollPane(panelDeProductos);
-
         contentPane.add(scrollPane, BorderLayout.CENTER);
-
         pack();
+    }
+
+    public void resetComboBox(){
+        codigosCantidad.forEach((codigo, comboBox) -> {
+            if(comboBox.getItemAt(comboBox.getSelectedIndex()) > 0) {
+                comboBox.setSelectedIndex(0);
+            }
+        });
     }
 }
 

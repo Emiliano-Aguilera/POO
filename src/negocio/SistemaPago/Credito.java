@@ -3,8 +3,11 @@ package negocio.SistemaPago;
 public class Credito implements MetodoPago{
     private final int cuotas;
 
+    private final String nombre;
+
     public Credito(int cuotas){
         this.cuotas = cuotas;
+        this.nombre = "Credito";
     }
 
     public double calcularTotal(double subtotal){
@@ -16,9 +19,8 @@ public class Credito implements MetodoPago{
         };
     }
 
-
-    public void mostrarMetodoPago() {
-
+    public String getNombre() {
+        return nombre;
     }
 
     public int getCuotas(){

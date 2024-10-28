@@ -2,10 +2,11 @@ package negocio;
 
 import negocio.SistemaPago.MetodoPago;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashMap;
 
-public class Ticket {
+public class Ticket implements Serializable {
     private Integer idTicket;
     private LocalDate fecha;
     private MetodoPago metodoDePago;
@@ -13,12 +14,12 @@ public class Ticket {
     private double subtotal;
     private double total;
 
-    private HashMap<Integer, Item> productos;
+    private HashMap<Integer, Item> items;
 
-    public Ticket(Integer idTicket, HashMap<Integer, Item> productos, LocalDate fecha,
+    public Ticket(Integer idTicket, HashMap<Integer, Item> items, LocalDate fecha,
                   MetodoPago metodoDePago, double subtotal, double total){
         this.idTicket = idTicket;
-        this.productos = productos;
+        this.items = items;
         this.fecha = fecha;
         this.metodoDePago = metodoDePago;
         this.subtotal = subtotal;
@@ -57,12 +58,12 @@ public class Ticket {
         this.total = total;
     }
 
-    public HashMap<Integer, Item> getProductos() {
-        return productos;
+    public HashMap<Integer, Item> getItems() {
+        return items;
     }
 
-    public void setProductos(HashMap<Integer, Item> productos) {
-        this.productos = productos;
+    public void setItems(HashMap<Integer, Item> items) {
+        this.items = items;
     }
 
     public Integer getIdTicket() {

@@ -1,10 +1,12 @@
 package negocio;
 
 import datos.*;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Catalogo {
+public class Catalogo implements Serializable {
     private final HashMap<Integer, Producto> productos;
 
     public Catalogo(){

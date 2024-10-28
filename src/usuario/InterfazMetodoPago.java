@@ -1,16 +1,19 @@
 package usuario;
 
 import negocio.Carrito;
+import negocio.Catalogo;
 import negocio.SistemaPago.Credito;
 import negocio.SistemaPago.Debito;
 import negocio.SistemaPago.Efectivo;
 import negocio.SistemaPago.MetodoPago;
+import negocio.Ticket;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class InterfazMetodoPago extends JDialog {
     private double total;
+    private Catalogo catalogo;
 
     private JPanel botonPanel;
     private JPanel mainPanel;
@@ -25,8 +28,9 @@ public class InterfazMetodoPago extends JDialog {
     private JComboBox cuotas;
     private JLabel labelTotal;
 
-    public InterfazMetodoPago(JFrame parent, double subtotal, Carrito carrito) {
+    public InterfazMetodoPago(JFrame parent, double subtotal, Carrito carrito, Catalogo catalogo) {
         super(parent, "Seleccione Método de Pago", true);
+        this.catalogo = catalogo;
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             SwingUtilities.updateComponentTreeUI(this);
@@ -58,30 +62,35 @@ public class InterfazMetodoPago extends JDialog {
         efectivo.addActionListener(e -> {
             metodoPago[0] = new Efectivo();
             total = metodoPago[0].calcularTotal(subtotal);
-            this.labelTotal.setText("Total: " + String.valueOf(total));
+            this.labelTotal.setText("Total: " + String.format("%.4f", total));
         });
+
         debito.addActionListener(e -> {
             metodoPago[0] = new Debito();
             total = metodoPago[0].calcularTotal(subtotal);
-            this.labelTotal.setText("Total: " + String.valueOf(total));
+            this.labelTotal.setText("Total: " + String.format("%.4f", total));
         });
+
         credito.addActionListener(e -> {
             metodoPago[0] = new Credito(Integer.parseInt((String) this.cuotas.getItemAt(this.cuotas.getSelectedIndex())));
             total = metodoPago[0].calcularTotal(subtotal);
-            this.labelTotal.setText("Total: " + String.valueOf(total));
+            this.labelTotal.setText("Total: " + String.format("%.4f", total));
         });
+
         cuotas.addActionListener(e -> {
             credito.setSelected(true);
             metodoPago[0] = new Credito(Integer.parseInt((String) this.cuotas.getItemAt(this.cuotas.getSelectedIndex())));
             total = metodoPago[0].calcularTotal(subtotal);
-            this.labelTotal.setText("Total: " + String.valueOf(total));
+            this.labelTotal.setText("Total: " + String.format("%.4f", total));
         });
 
         botonPagar.addActionListener(e -> {
-            carrito.enviarCarrito(this.total, metodoPago[0], this.total);
+            Ticket ticket = carrito.enviarCarrito(metodoPago[0], this.total);
+            InterfazTicket interfazTicket = new InterfazTicket(parent, ticket, catalogo);
+            interfazTicket.setVisible(true);
             dispose();
-
         });
+        setLocationRelativeTo(parent);
     }
 }
 

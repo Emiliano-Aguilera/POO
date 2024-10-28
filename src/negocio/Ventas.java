@@ -1,9 +1,10 @@
 package negocio;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import datos.*;
 
-public class Ventas {
+public class Ventas implements Serializable {
     private final HashMap<Integer, Ticket> ventas;
     private int idTicket;
 

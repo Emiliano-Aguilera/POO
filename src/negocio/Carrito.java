@@ -2,10 +2,11 @@ package negocio;
 
 import negocio.SistemaPago.MetodoPago;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashMap;
 
-public class Carrito{
+public class Carrito implements Serializable {
     private HashMap<Integer, Item> itemsCargados;
     private double subtotal;
     private final Catalogo catalogo;
@@ -52,13 +53,13 @@ public class Carrito{
         subtotal = 0.0;
     }
 
-    public void enviarCarrito(double productosCantidad, MetodoPago metodoPago, double total){
-
+    public Ticket enviarCarrito(MetodoPago metodoPago, double total){
         int idTicket = ventas.generarId();
         LocalDate fecha = LocalDate.now();
         Ticket ticket = new Ticket(idTicket, getItemsCargados(), fecha, metodoPago, this.subtotal, total);
         ventas.agregarTicket(ticket);
 
+        return ticket;
     }
 
     private void actualizarStockProductos() {
