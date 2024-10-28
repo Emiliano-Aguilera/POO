@@ -11,8 +11,8 @@ public class InterfazCatalogo extends JDialog {
     private final ArrayList<Producto> productos;
     private JPanel contentPane;
 
-    public InterfazCatalogo(JFrame parent, Catalogo catalogo){
-        super(parent, "Catalogo", true);
+    public InterfazCatalogo(JFrame parent, Catalogo catalogo) {
+        super(parent, "Catálogo", true);
         productos = catalogo.obtenerProductos();
 
         try {
@@ -24,59 +24,53 @@ public class InterfazCatalogo extends JDialog {
 
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
-        mostrarCatalogo();
-        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
+        contentPane = new JPanel();  // Inicializar contentPane
+        contentPane.setLayout(new BorderLayout());
 
+        mostrarCatalogo();
         setContentPane(contentPane);
 
         pack();
-
-        // La ubicacion se pone al final, para que se centre con las dimensiones finales
-        setLocationRelativeTo(parent);
-
+        setLocationRelativeTo(parent);  // Centrar ventana
     }
 
-    public void mostrarCatalogo(){
-        JPanel productoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    public void mostrarCatalogo() {
+        // Panel para los encabezados y los productos usando GridLayout
+        JPanel gridPanel = new JPanel();
+        gridPanel.setLayout(new GridLayout(productos.size() + 1, 5, 10, 10)); // Filas: productos + 1 encabezado, Columnas: 5
 
-        JLabel labelCodigoProducto = new JLabel("Codigo");
-        JLabel labelDescripcionProducto = new JLabel("Desc.");
-        JLabel labelStock = new JLabel("Stock");
-        JLabel labelStockMinimo = new JLabel("Stock Min.");
-        JLabel labelPrecioProducto = new JLabel("Precio");
+        // Encabezados
+        gridPanel.add(new JLabel("Código", SwingConstants.CENTER));
+        gridPanel.add(new JLabel("Desc.", SwingConstants.CENTER));
+        gridPanel.add(new JLabel("Stock", SwingConstants.CENTER));
+        gridPanel.add(new JLabel("Stock Min.", SwingConstants.CENTER));
+        gridPanel.add(new JLabel("Precio", SwingConstants.CENTER));
 
-        productoPanel.add(labelCodigoProducto);
-        productoPanel.add(labelDescripcionProducto);
-        productoPanel.add(labelStock);
-        productoPanel.add(labelStockMinimo);
-        productoPanel.add(labelPrecioProducto);
-
-        contentPane.add(productoPanel);
-
+        // Datos de productos
         for (Producto producto : productos) {
-            productoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+            JLabel codigoProducto = new JLabel(String.valueOf(producto.getCodigo()), SwingConstants.CENTER);
+            JLabel descripcionProducto = new JLabel(producto.getDescripcion(), SwingConstants.CENTER);
+            JLabel stock = new JLabel(String.valueOf(producto.getStock()), SwingConstants.CENTER);
+            JLabel stockMinimo = new JLabel(String.valueOf(producto.getStockMinimo()), SwingConstants.CENTER);
+            JLabel precioProducto = new JLabel(String.valueOf(producto.getPrecio()), SwingConstants.CENTER);
 
-            JLabel codigoProducto = new JLabel(String.valueOf(producto.getCodigo()));
-            JLabel descripcionProducto = new JLabel(producto.getDescripcion());
-            JLabel stock = new JLabel(String.valueOf(producto.getStock()));
-            JLabel stockMinimo = new JLabel(String.valueOf(producto.getStockMinimo()));
-            JLabel precioProducto = new JLabel(String.valueOf(producto.getPrecio()));
-
-            if (producto.getStock() < producto.getStockMinimo()){
-                // Make background visible
-                productoPanel.setOpaque(true);
-                // Change to red text on yellow background
-                productoPanel.setBackground(Color.RED);
+            // Cambiar color si el stock es menor que el mínimo
+            if (producto.getStock() < producto.getStockMinimo()) {
+                codigoProducto.setForeground(Color.RED);
+                descripcionProducto.setForeground(Color.RED);
+                stock.setForeground(Color.RED);
+                stockMinimo.setForeground(Color.RED);
+                precioProducto.setForeground(Color.RED);
             }
 
-            // añadir datos del producto a el panel del producto
-            productoPanel.add(codigoProducto);
-            productoPanel.add(descripcionProducto);
-            productoPanel.add(stock);
-            productoPanel.add(stockMinimo);
-            productoPanel.add(precioProducto);
-
-            contentPane.add(productoPanel);
+            gridPanel.add(codigoProducto);
+            gridPanel.add(descripcionProducto);
+            gridPanel.add(stock);
+            gridPanel.add(stockMinimo);
+            gridPanel.add(precioProducto);
         }
+
+        contentPane.add(gridPanel, BorderLayout.CENTER);
     }
 }
+

@@ -48,7 +48,7 @@ public class InterfazAgregarProductos extends JDialog {
             // Limpiar los campos
             limpiarCampos();
         }
-        catch (NullPointerException _) {
+        catch (Exception e) {
             throw new ErrorCargaException();
         }
 
