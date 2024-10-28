@@ -46,23 +46,31 @@ public class InterfazListaProductos extends JDialog {
         // La ubicacion se pone al final, para que se centre con las dimensiones finales
         setLocationRelativeTo(parent);
         botonPagar.addActionListener(_ -> {
+            final int[] contadorProductos = {0};
             codigosCantidad.forEach((codigo, comboBox) -> {
                 if(comboBox.getItemAt(comboBox.getSelectedIndex()) > 0) {
                     Item item = new Item(codigo, comboBox.getSelectedIndex(), catalogo);
                     carrito.cargarProducto(item);
+                    contadorProductos[0]++;
                 }
             });
 
-            double subtotal = carrito.getSubtotal();
+            if (contadorProductos[0] > 0){
+                double subtotal = carrito.getSubtotal();
 
-            // Open payment method window
-            InterfazMetodoPago metodoPagoDialog = new InterfazMetodoPago(InterfazListaProductos.this,
-                                                                    subtotal, carrito, catalogo);
-            metodoPagoDialog.setVisible(true);
+                // Open payment method window
+                InterfazMetodoPago metodoPagoDialog = new InterfazMetodoPago(InterfazListaProductos.this,
+                        subtotal, carrito, catalogo);
+                metodoPagoDialog.setVisible(true);
 
-            this.productos = catalogo.obtenerProductos();
-            mostrarProductos();
-            pack();
+                this.productos = catalogo.obtenerProductos();
+                mostrarProductos();
+                pack();
+            }else{
+                MensajeError error = new MensajeError(InterfazListaProductos.this,
+                        "Debe añadir al menos 1 producto.");
+                error.setVisible(true);
+            }
         });
     }
 

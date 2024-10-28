@@ -76,10 +76,7 @@ public class InterfazMetodoPago extends JDialog {
         });
 
         cuotas.addActionListener(_ -> {
-            credito.setSelected(true);
-            metodoPago[0] = new Credito(Integer.parseInt(String.valueOf(this.cuotas.getItemAt(this.cuotas.getSelectedIndex()))));
-            total = metodoPago[0].calcularTotal(subtotal);
-            this.labelTotal.setText("Total: " + String.format("%.4f", total));
+            credito.doClick();
         });
 
         botonPagar.addActionListener(_ -> {
@@ -89,6 +86,9 @@ public class InterfazMetodoPago extends JDialog {
             interfazTicket.setVisible(true);
             dispose();
         });
+
+        // efectivo es el medio de pago predeterminado
+        efectivo.doClick();
         setLocationRelativeTo(parent);
     }
 }
