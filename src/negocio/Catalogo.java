@@ -42,6 +42,10 @@ public class Catalogo implements Serializable {
         return cat;
     }
 
+    public void cambiarStock(int codigo, int stock){
+        productos.get(codigo).setStock(stock);
+    }
+
     public boolean guardarse(){
         return DatosCatalogo.guardar(this);
     }

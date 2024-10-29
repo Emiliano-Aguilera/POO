@@ -1,6 +1,8 @@
 package negocio.SistemaPago;
 
-public class Efectivo implements MetodoPago{
+import java.io.Serializable;
+
+public class Efectivo implements MetodoPago, Serializable {
     private final String nombre;
 
     public Efectivo(){

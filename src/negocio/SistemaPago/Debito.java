@@ -1,6 +1,8 @@
 package negocio.SistemaPago;
 
-public class Debito implements MetodoPago{
+import java.io.Serializable;
+
+public class Debito implements MetodoPago, Serializable {
     private final String nombre;
 
     public Debito(){

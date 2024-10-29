@@ -38,9 +38,8 @@ public class InterfazCatalogo extends JDialog {
             try {
                 Producto producto = catalogo.elegirProducto(Integer.valueOf(codigoInput.getText()));
                 int nuevoStock = Integer.parseInt(stockInput.getText());
-                System.out.println(nuevoStock >= 0);
                 if(nuevoStock >= 0) {
-                    producto.setStock(nuevoStock);
+                    catalogo.cambiarStock(producto.getCodigo(), nuevoStock);
                     mostrarCatalogo();
                     pack();
                     Mensaje mensaje = new Mensaje(InterfazCatalogo.this, "Stock actualizado satisfactoriamente.");
