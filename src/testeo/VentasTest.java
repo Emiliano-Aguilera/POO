@@ -1,12 +1,8 @@
 package testeo;
 
-import negocio.Item;
-import negocio.SistemaPago.Efectivo;
-import negocio.Ticket;
-import negocio.Ventas;
-import org.junit.Before;
-import org.junit.Test;
-
+import negocio.*;
+import negocio.SistemaPago.*;
+import org.junit.*;
 import java.time.LocalDate;
 import java.util.HashMap;
 

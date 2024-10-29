@@ -5,7 +5,6 @@ import org.junit.*;
 import testeo.mockObjects.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class CatalogoTest {
     private Catalogo catalogo;

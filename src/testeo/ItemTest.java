@@ -1,9 +1,7 @@
 package testeo;
 
-import negocio.Catalogo;
-import negocio.Item;
-import org.junit.Before;
-import org.junit.Test;
+import negocio.*;
+import org.junit.*;
 import testeo.mockObjects.MockProducto;
 
 public class ItemTest {
