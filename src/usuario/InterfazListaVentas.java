@@ -49,11 +49,11 @@ public class InterfazListaVentas extends JDialog {
         gridPanel.setLayout(new GridLayout(listaVentas.size() + 1, 5, 40, 10));
 
         // Encabezados
-        gridPanel.add(new JLabel("ID Ticket", SwingConstants.CENTER));
-        gridPanel.add(new JLabel("Fecha", SwingConstants.CENTER));
-        gridPanel.add(new JLabel("Metodo Pago", SwingConstants.CENTER));
-        gridPanel.add(new JLabel("Subtotal", SwingConstants.CENTER));
-        gridPanel.add(new JLabel("Total", SwingConstants.CENTER));
+        gridPanel.add(new JLabel("ID Ticket", SwingConstants.LEFT));
+        gridPanel.add(new JLabel("Fecha", SwingConstants.LEFT));
+        gridPanel.add(new JLabel("Metodo Pago", SwingConstants.LEFT));
+        gridPanel.add(new JLabel("Subtotal", SwingConstants.LEFT));
+        gridPanel.add(new JLabel("Total", SwingConstants.LEFT));
 
         // Datos de listaVentas
         for (Ticket ticket : listaVentas) {

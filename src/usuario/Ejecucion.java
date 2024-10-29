@@ -26,6 +26,6 @@ public class Ejecucion{
         });
 
         catalogo.guardarse();
-        System.out.println(ventas.guardarse());
+        ventas.guardarse();
     }
 }

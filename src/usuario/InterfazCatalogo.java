@@ -17,6 +17,7 @@ public class InterfazCatalogo extends JDialog {
     private JTextField stockInput;
     private JLabel labelCodigo;
     private JLabel labelStock;
+    private JPanel scrollProductos;
 
     public InterfazCatalogo(JFrame parent, Catalogo catalogo) {
         super(parent, "Catálogo", true);
