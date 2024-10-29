@@ -9,8 +9,8 @@ import javax.swing.*;
 
 public class Ejecucion{
     public static void main(String[] args) {
-        Catalogo catalogo = new Catalogo();
-        Ventas ventas = new Ventas();
+        Catalogo catalogo = Catalogo.recuperarse();
+        Ventas ventas = Ventas.recuperarse();
         Carrito carrito = new Carrito(catalogo, ventas);
 
         for(int i = 0; i < 10; i++){
@@ -22,5 +22,8 @@ public class Ejecucion{
             VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(catalogo, carrito);
             ventanaPrincipal.setVisible(true);
         });
+
+        catalogo.guardarse();
+        ventas.guardarse();
     }
 }
