@@ -2,7 +2,6 @@ package usuario;
 
 import negocio.Catalogo;
 import negocio.Producto;
-import negocio.SistemaPago.MetodoPago;
 
 import javax.swing.*;
 import java.awt.*;
