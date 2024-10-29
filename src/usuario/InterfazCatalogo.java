@@ -2,6 +2,7 @@ package usuario;
 
 import negocio.Catalogo;
 import negocio.Producto;
+import negocio.SistemaPago.MetodoPago;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +11,12 @@ import java.util.ArrayList;
 public class InterfazCatalogo extends JDialog {
     private final ArrayList<Producto> productos;
     private JPanel contentPane;
+    private JPanel panelDeProductos;
+    private JButton botonModificarStock;
+    private JTextField codigoInput;
+    private JTextField stockInput;
+    private JLabel labelCodigo;
+    private JLabel labelStock;
 
     public InterfazCatalogo(JFrame parent, Catalogo catalogo) {
         super(parent, "Catálogo", true);
@@ -24,20 +31,42 @@ public class InterfazCatalogo extends JDialog {
 
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
-        contentPane = new JPanel();  // Inicializar contentPane
-        contentPane.setLayout(new BorderLayout());
-
         mostrarCatalogo();
+
+        botonModificarStock.addActionListener(_ -> {
+            try {
+                Producto producto = catalogo.elegirProducto(Integer.valueOf(codigoInput.getText()));
+                int nuevoStock = Integer.parseInt(stockInput.getText());
+                System.out.println(nuevoStock >= 0);
+                if(nuevoStock >= 0) {
+                    producto.setStock(nuevoStock);
+                    mostrarCatalogo();
+                    pack();
+                    Mensaje mensaje = new Mensaje(InterfazCatalogo.this, "Stock actualizado satisfactoriamente.");
+                    mensaje.setVisible(true);
+                }else{
+                    Mensaje error = new Mensaje(InterfazCatalogo.this, "El stock no puede ser negativo.");
+                    error.setVisible(true);
+                }
+            }
+            catch (Exception e){
+                Mensaje error = new Mensaje(InterfazCatalogo.this, "Ingrese correctamente Codigo y Stock.");
+                error.setVisible(true);
+            }
+        });
+
         setContentPane(contentPane);
+
 
         pack();
         setLocationRelativeTo(parent);  // Centrar ventana
+
     }
 
     public void mostrarCatalogo() {
         // Panel para los encabezados y los productos usando GridLayout
         JPanel gridPanel = new JPanel();
-        gridPanel.setLayout(new GridLayout(productos.size() + 1, 5, 10, 10)); // Filas: productos + 1 encabezado, Columnas: 5
+        gridPanel.setLayout(new GridLayout(productos.size() + 1, 5, 10, 10));
 
         // Encabezados
         gridPanel.add(new JLabel("Código", SwingConstants.CENTER));
@@ -70,7 +99,7 @@ public class InterfazCatalogo extends JDialog {
             gridPanel.add(precioProducto);
         }
 
-        contentPane.add(gridPanel, BorderLayout.CENTER);
+        panelDeProductos.add(gridPanel, BorderLayout.CENTER);
     }
 }
 

@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import negocio.Catalogo;
 import negocio.Carrito;
+import negocio.Ventas;
 
 public class VentanaPrincipal extends JFrame {
     private JPanel contentPane;
@@ -13,9 +14,10 @@ public class VentanaPrincipal extends JFrame {
     private JPanel ventanaSeleccion;
     private JLabel header;
     private JButton botonCatalogo;
+    private JButton botonVentas;
 
 
-    public VentanaPrincipal(Catalogo catalogo, Carrito carrito) {
+    public VentanaPrincipal(Catalogo catalogo, Carrito carrito, Ventas ventas) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         try {
@@ -51,6 +53,14 @@ public class VentanaPrincipal extends JFrame {
                 ventanaAgregar.setVisible(true);
             }
         });
+        botonVentas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                InterfazListaVentas ventanaVentas = new InterfazListaVentas(VentanaPrincipal.this, ventas);
+                ventanaVentas.setVisible(true);
+            }
+        });
+
     }
 }
 

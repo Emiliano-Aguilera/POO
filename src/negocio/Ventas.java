@@ -1,6 +1,7 @@
 package negocio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import datos.*;
 
@@ -15,6 +16,10 @@ public class Ventas implements Serializable {
 
     public HashMap<Integer, Ticket> getVentas() {
         return ventas;
+    }
+
+    public ArrayList<Ticket> getListaVentas(){
+        return new ArrayList<>(ventas.values());
     }
 
     public void agregarTicket(Ticket ticket){

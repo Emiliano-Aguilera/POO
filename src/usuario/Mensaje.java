@@ -7,7 +7,7 @@ public class Mensaje extends JDialog {
     private JLabel mensaje;
 
     public Mensaje(JDialog parent, String mensaje){
-        super(parent, "Error!", true);
+        super(parent, "", true);
 
         this.mensaje.setText(mensaje);
 

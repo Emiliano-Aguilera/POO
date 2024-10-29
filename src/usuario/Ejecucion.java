@@ -19,7 +19,7 @@ public class Ejecucion{
         }
 
         SwingUtilities.invokeLater(() -> {
-            VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(catalogo, carrito);
+            VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(catalogo, carrito, ventas);
             ventanaPrincipal.setVisible(true);
         });
 
