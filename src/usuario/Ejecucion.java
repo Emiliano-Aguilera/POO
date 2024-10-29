@@ -1,11 +1,12 @@
 package usuario;
 
-import negocio.Carrito;
-import negocio.Catalogo;
-import negocio.Producto;
-import negocio.Ventas;
+import negocio.*;
+import negocio.SistemaPago.Efectivo;
+import negocio.SistemaPago.MetodoPago;
 
 import javax.swing.*;
+import java.time.LocalDate;
+import java.util.HashMap;
 
 public class Ejecucion{
     public static void main(String[] args) {
@@ -17,6 +18,7 @@ public class Ejecucion{
             Producto producto = new Producto(i, "Papa" + i, 10 + i, 5, 100);
             catalogo.agregarProducto(producto);
         }
+        ventas.agregarTicket(new Ticket(1, new HashMap<Integer, Item>(), LocalDate.now(), new Efectivo(), 10, 100));
 
         SwingUtilities.invokeLater(() -> {
             VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(catalogo, carrito, ventas);
@@ -24,6 +26,6 @@ public class Ejecucion{
         });
 
         catalogo.guardarse();
-        ventas.guardarse();
+        System.out.println(ventas.guardarse());
     }
 }

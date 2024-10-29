@@ -46,7 +46,7 @@ public class InterfazListaVentas extends JDialog {
     public void mostrarVentas() {
         // Panel para los encabezados y los listaVentas usando GridLayout
         JPanel gridPanel = new JPanel();
-        gridPanel.setLayout(new GridLayout(listaVentas.size() + 1, 5, 30, 10));
+        gridPanel.setLayout(new GridLayout(listaVentas.size() + 1, 5, 40, 10));
 
         // Encabezados
         gridPanel.add(new JLabel("ID Ticket", SwingConstants.CENTER));
@@ -72,11 +72,11 @@ public class InterfazListaVentas extends JDialog {
             JLabel subtotal = new JLabel(String.valueOf(ticket.getSubtotal()));
             JLabel total = new JLabel(String.valueOf(ticket.getTotal()));
 
-            gridPanel.add(idTicket, SwingConstants.CENTER);
-            gridPanel.add(fecha, SwingConstants.CENTER);
-            gridPanel.add(metodoDePago, SwingConstants.CENTER);
-            gridPanel.add(subtotal, SwingConstants.CENTER);
-            gridPanel.add(total, SwingConstants.CENTER);
+            gridPanel.add(idTicket);
+            gridPanel.add(fecha);
+            gridPanel.add(metodoDePago);
+            gridPanel.add(subtotal);
+            gridPanel.add(total);
         }
 
         panelVentas.add(gridPanel, BorderLayout.CENTER);
